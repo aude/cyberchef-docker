@@ -1,0 +1,31 @@
+#!/bin/bash
+. "$(dirname "$0")/lib"
+
+# if git is in dirty state, bail out
+if [ "$(git status --porcelain)" != "" ]; then
+	echo 'git is in dirty state, bailing out' 1>&2
+	exit 1
+fi
+
+while read -r version; do
+	# go to project directory
+	cd "$(git rev-parse --show-toplevel)"
+
+	# if branch already exists, make local branch and continue
+	if git show-ref --quiet --verify "refs/remotes/origin/$version"; then
+		# IDEA: could move to plumbing commands here
+		git checkout "$version"
+		continue
+	fi
+
+	git checkout master
+	git checkout --orphan "$version"
+
+	echo "$version" | prepare-for-commit
+
+	git add --all
+	git commit -m 'initial commit'
+	git tag "$version-0"
+
+	git checkout master
+done

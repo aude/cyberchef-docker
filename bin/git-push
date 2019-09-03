@@ -1,0 +1,6 @@
+#!/bin/bash
+. "$(dirname "$0")/lib"
+
+# IDEA: is it possible do this in one step?
+# git push origin 'refs/heads/*' 'refs/tags/*'
+git push --all && git push --tags

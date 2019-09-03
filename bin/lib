@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# this script must be sourced
+if ! [ "${BASH_SOURCE[0]}" != "$0" ]; then
+	echo 'this script must be sourced' 1>&2
+	exit 1
+fi
+
+# http://www.davidpashley.com/articles/writing-robust-shell-scripts/
+set -u
+set -e
+set -o pipefail
+
+# go to script directory
+cd "$(dirname "$0")"
+
+# add script directory to $PATH
+export PATH="$(pwd):$PATH"

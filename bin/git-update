@@ -1,0 +1,5 @@
+#!/bin/bash
+. "$(dirname "$0")/lib"
+
+git fetch origin
+git update-ref refs/heads/master refs/remotes/origin/master

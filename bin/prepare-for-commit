@@ -1,0 +1,22 @@
+#!/bin/bash
+. "$(dirname "$0")/lib"
+
+# go to project directory
+cd "$(git rev-parse --show-toplevel)"
+
+read -r version
+
+# delete files we don't want to commit
+find . \
+	-mindepth 1 \
+	-maxdepth 1 \
+	   -path './.git' -prune \
+	-o -path './Dockerfile' -prune \
+	-o -path './docker-compose.test.yml' -prune \
+	-o -path './test' -prune \
+	-o -path './LICENSE' -prune \
+	-o -path './README.md' -prune \
+	-o -exec rm -rf {} +
+
+# set $version
+sed -i "s/ARG VERSION/ENV VERSION \"$version\"/" 'Dockerfile'
