@@ -1,0 +1,3 @@
+# ensure this project is detected as a Docker project at GitHub
+** linguist-detectable=false
+/Dockerfile linguist-detectable=true
