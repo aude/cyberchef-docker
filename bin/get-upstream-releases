@@ -1,6 +1,6 @@
 #!/bin/bash
 . "$(dirname "$0")/lib"
 
-# get the last 10 versions, increase if necessary
+# get the last 10 releases, increase if necessary
 curl --fail --silent --show-error 'https://api.github.com/repos/gchq/CyberChef/releases?per_page=10' |
 	jq -r '.[] | .tag_name'

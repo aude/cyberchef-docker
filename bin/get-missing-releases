@@ -1,0 +1,5 @@
+#!/bin/bash
+. "$(dirname "$0")/lib"
+
+# show all upstream releases that don't exist in local releases
+comm -23 <(get-upstream-releases | sort -u) <(get-local-releases | sort -u)

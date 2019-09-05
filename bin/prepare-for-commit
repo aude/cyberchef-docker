@@ -4,7 +4,7 @@
 # go to project directory
 cd "$(git rev-parse --show-toplevel)"
 
-read -r version
+read -r release
 
 # delete files we don't want to commit
 find . \
@@ -18,5 +18,5 @@ find . \
 	-o -path './README.md' -prune \
 	-o -exec rm -rf {} +
 
-# set $version
-sed -i "s/ARG VERSION/ENV VERSION \"$version\"/" 'Dockerfile'
+# set $release
+sed -i "s/ARG RELEASE/ENV RELEASE \"$release\"/" 'Dockerfile'

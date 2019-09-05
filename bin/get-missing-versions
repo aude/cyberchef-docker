@@ -1,5 +1,0 @@
-#!/bin/bash
-. "$(dirname "$0")/lib"
-
-# show all upstream versions that don't exist in local versions
-comm -23 <(get-upstream-versions | sort -u) <(get-local-versions | sort -u)
