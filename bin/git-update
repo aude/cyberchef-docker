@@ -1,5 +1,21 @@
 #!/bin/bash
 . "$(dirname "$0")/lib"
 
+# if git is in dirty state, bail out
+if [ "$(git status --porcelain)" != "" ]; then
+	echo 'git is in dirty state, bailing out' 1>&2
+	exit 1
+fi
+
+# redirect stdout to stderr,
+# because we want to print only ${version}s to stdout
+exec 3>&1
+exec 1>&2
+
+git checkout master
 git fetch origin
-git update-ref refs/heads/master refs/remotes/origin/master
+git reset --hard origin/master
+
+# restore original stdout
+exec 1>&3
+exec 3>&-
