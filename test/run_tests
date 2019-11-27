@@ -1,0 +1,24 @@
+#!/bin/ash
+
+# http://www.davidpashley.com/articles/writing-robust-shell-scripts/
+set -u
+set -e
+set -o pipefail
+
+# show all commands run
+set -x
+
+# test that front page is reachable
+curl --fail --silent --show-error 'http://cyberchef/' >/dev/null
+
+# test that front page is CyberChef
+curl --fail --silent --show-error 'http://cyberchef/' | grep 'CyberChef' >/dev/null
+
+# test that main.css and main.js are available
+curl --fail --silent --show-error 'http://cyberchef/assets/main.css' >/dev/null
+curl --fail --silent --show-error 'http://cyberchef/assets/main.js' >/dev/null
+
+# test that modules are available
+curl --fail --silent --show-error 'http://cyberchef/modules/URL.js' >/dev/null
+curl --fail --silent --show-error 'http://cyberchef/modules/Regex.js' >/dev/null
+curl --fail --silent --show-error 'http://cyberchef/modules/Code.js' >/dev/null
