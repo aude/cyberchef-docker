@@ -1,0 +1,8 @@
+version: "3"
+services:
+  cyberchef:
+    build: .
+  sut:
+    build: ./test
+    depends_on:
+    - cyberchef
